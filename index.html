@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple PHP Form with AJAX</title>
+</head>
+<body>
+    <h1>Simple PHP Form with AJAX</h1>
+    <form id="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function submitForm() {
+          var name = $('#name').val();
+          var formData = { name: name };
+      
+          $.ajax({
+            url: 'index.php',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+              // Handle the successful response here
+              $('#result').html('<p>' + response.message + '</p>');
+            },
+            error: function(xhr, status, error) {
+              // Handle errors here
+              console.error('AJAX request failed with status:', status);
+            }
+          });
+        }
+      </script>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</body>
+</html>
