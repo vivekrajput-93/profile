@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+
+}
+
+
+
+.main-class {
+    padding: 100px;
+    width: 100%;
+}
+
+.main-class button {
+    margin-top: 2rem;
+}
+
+.image-class {
+    width: 100%;
+}
+
+.image-class img {
+    width: 500px;
+    height: 500px;
+    padding: 30px;
+}

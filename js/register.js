@@ -21,7 +21,9 @@ function submitForm() {
     dataType: "json",
     success: function (response) {
       // Handle the successful response here
-      $("#result").html("<p>" + response.message + "</p>");
+      if(response.message == "successfull") {
+        window.location.href = "login.html"
+    }
     },
     error: function (xhr, status, error) {
       // Handle errors here
