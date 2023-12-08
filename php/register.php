@@ -20,59 +20,70 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     echo json_encode(['message' => 'Hello, PHP!']);
 }
 
-$servername = "localhost";
+$server = "localhost";
 $username = "root";
-$password = "";
-$dbname = "auth";
+$password = "viveksingh__1729";
+$dbname = "vivek-auth";
 
-$conn =  new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($server, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 
-$stmt = $conn->prepare("INSERT INTO `auth`.`users` (`email`, `password`) VALUES (?, ?)");
-$stmt->bind_param("ss", $email, $password);
-
-// Set parameter values and execute the statement
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
+$stmt = $conn->prepare("INSERT INTO `users` (`email`, `password`) VALUES (?, ?)");
+$stmt->bind_param("ss", $email, $password);
+
 $stmt->execute();
 
-if($stmt->affected_rows > 0) {
-    echo json_encode(["message"=> "Successfully inserted"]);
-} else {
-    echo json_encode(["message"=> "Not inserted"]);
-}
-
+// if ($stmt->affected_rows > 0) {
+//     echo json_encode(["message" => "Successfully inserted"]);
+// } else {
+//     echo json_encode(["message" => "Not inserted"]);
+// }
 
 $stmt->close();
 $conn->close();
 
-// $mongoClient = new MongoDB\Client("mongodb://localhost:27017");
+// Mongodb connection 
 
-// Select your database
-$mongoDB = $mongoClient->selectDatabase("myMongoDB");
+require_once  '../vendor/autoload.php';
 
-// Select your collection
-$usersCollection = $mongoDB->users;
+$database = new MongoDB\Client('mongodb://localhost:27017');
 
-// Create an array with the data to be inserted
-$userData = [
-    'username' => $username,
-    'age' => $age,
-    'dob' => $dob,
-    'contact' => $contact
-];
 
-// Insert the data into the collection
-$result = $usersCollection->insertOne($userData);
+$myDatabase = $database->profile;
 
-if ($result->getInsertedCount() > 0) {
-    echo json_encode(["message"=> "Successfully inserted into MongoDB"]);
+$userCollection = $myDatabase->users;
+
+
+// if($userCollection) {
+//     echo json_encode(["message" => "Connected to the ".$userCollection." "]);
+// } else {
+//     echo json_encode(["message" => "Not connected to the database "]);
+// }
+
+
+$data = array(
+    "username" => $username,
+    "age" => $age,
+    "dob" => $dob,
+    "contact" => $contact
+);
+
+$insert = $userCollection->insertOne($data);
+
+
+if($insert) {
+    echo json_encode(["message" => "Connected to the ".$userCollection." "]);
 } else {
-    echo json_encode(["message"=> "Not inserted into MongoDB"]);
+    echo json_encode(["message" => "Not connected to the database "]);
 }
 
 
+
 ?>
-
-
