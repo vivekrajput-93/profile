@@ -1,28 +1,22 @@
-// Function to fetch user data based on email
-function fetchUserProfile() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const userEmail = urlParams.get('email');
-
-    fetch('../php/profile.php?email=' + userEmail)
-    .then(response => response.json())
-    .then(data => {
-        // Display user data in the profile HTML
-        if (data) {
-            profileDiv.innerHTML = `
-                <h2>User Profile</h2>
-                <p>Username: ${data.username}</p>
-                <p>Email: ${data.email}</p>
-                <p>Age: ${data.age}</p>
-                <p>Date of Birth: ${data.dob}</p>
-                <p>Contact: ${data.contact}</p>
-            `;
-        } else {
-            profileDiv.innerHTML = '<p>User data not found!</p>';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
+$(document).ready(function() {
+    $.ajax({
+        url: "../php/profile.php",
+        type: "GET",
+        dataType: "json",
+        success: function(response) {
+            if(response.message == "successfull") {
+                // Populate user data in the profile page
+                $("#username").text(response.data.username);
+                $("#email").text(response.data.email);
+                $("#age").text(response.data.age);
+                $("#dob").text(response.data.dob);
+                $("#contact").text(response.data.contact);
+            } else {
+                console.error("Failed to fetch user data");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX request failed with status:", status);
+        },
     });
-}
-
-fetchUserProfile();
+});
