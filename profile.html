@@ -13,10 +13,10 @@
         <h1>User Profile</h1>
         <div class="user-details">
             <p><strong>Username:</strong> <span id="username"></span> <button id="updateUsername" class="btn btn-primary">Update</button></p>
-            <p><strong>Email:</strong> <span id="email"></span> <button id="updateEmail" class="btn btn-primary">Update</button></p>
             <p><strong>Age:</strong> <span id="age"></span> <button id="updateAge" class="btn btn-primary">Update</button></p>
             <p><strong>Date of Birth:</strong> <span id="dob"></span> <button id="updateDob" class="btn btn-primary">Update</button></p>
             <p><strong>Contact:</strong> <span id="contact"></span> <button id="updateContact" class="btn btn-primary">Update</button></p>
+            <p><button id="logout" class="btn btn-danger">Logout</button></p>
         </div>
     </div>
     
@@ -24,5 +24,13 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./js/profile.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#logout').on('click', function() {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
 </body>
 </html>

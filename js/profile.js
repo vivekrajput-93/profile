@@ -24,7 +24,6 @@ $(document).ready(function() {
                 var userData = response.data;
                 // Update your HTML elements with the user data
                 $('#username').text(userData.username);
-                $('#email').text(userData.email);
                 $('#age').text(userData.age);
                 $('#dob').text(userData.dob);
                 $('#contact').text(userData.contact);
@@ -36,4 +35,57 @@ $(document).ready(function() {
             console.error("AJAX request failed with status:", status);
         },
     });
+});
+
+function updateUserField(field, newData) {
+    var updatedData = {};
+    updatedData[field] = newData;
+
+    $.ajax({
+        url: "../php/profile.php?action=updateUser",
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(updatedData),
+        success: function(response) {
+            if (response.message === 'success') {
+                // Update successful, update the displayed data
+                $('#' + field).text(newData);
+            } else {
+                console.error(`Failed to update ${field}`);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX request failed with status:", status);
+        },
+    });
+}
+
+// Event handlers for update buttons
+
+$('#updateUsername').on('click', function() {
+    var newUsername = prompt('Enter new username:');
+    if (newUsername !== null && newUsername.trim() !== '') {
+        updateUserField('username', newUsername);
+    }
+});
+
+$('#updateAge').on('click', function() {
+    var newAge = prompt('Enter new age:');
+    if (newAge !== null && !isNaN(newAge) && newAge.trim() !== '') {
+        updateUserField('age', newAge);
+    }
+});
+
+$('#updateDob').on('click', function() {
+    var newDob = prompt('Enter new date of birth:');
+    if (newDob !== null && newDob.trim() !== '') {
+        updateUserField('dob', newDob);
+    }
+});
+
+$('#updateContact').on('click', function() {
+    var newContact = prompt('Enter new contact:');
+    if (newContact !== null && newContact.trim() !== '') {
+        updateUserField('contact', newContact);
+    }
 });

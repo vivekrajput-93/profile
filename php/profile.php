@@ -27,5 +27,20 @@ if (isset($_GET['userEmail'])) {
     echo json_encode(['message' => 'No user found in MySQL']);
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'updateUser') {
+    $updatedData = json_decode(file_get_contents('php://input'), true);
+
+    // Update user data in MongoDB
+    $updateResult = $userCollection->updateOne(
+        ['email' => $userEmail],
+        ['$set' => $updatedData]
+    );
+
+    if ($updateResult->getModifiedCount() > 0) {
+        echo json_encode(['message' => 'success']);
+    } else {
+        echo json_encode(['message' => 'Failed to update user data']);
+    }
+}
 
 ?>
