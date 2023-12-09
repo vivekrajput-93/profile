@@ -26,3 +26,7 @@ body {
     height: 500px;
     padding: 30px;
 }
+
+.note {
+    margin-top: 2rem;
+}
