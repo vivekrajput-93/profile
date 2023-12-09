@@ -35,7 +35,7 @@ $email = isset($_POST['email']) ? $_POST['email'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
 // Hash the password
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+// $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Check if user already exists with the given email in SQL
 $stmt = $conn->prepare("SELECT * FROM `users` WHERE `email` = ?");
@@ -73,7 +73,7 @@ if ($existsInSQL || $userExistsInMongoDB) {
     if ($insert) {
         // Insert into SQL with hashed password
         $stmt = $conn->prepare("INSERT INTO `users` (`email`, `password`) VALUES (?, ?)");
-        $stmt->bind_param("ss", $email, $hashedPassword);
+        $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
 
         echo json_encode(["message" => "successfull"]);
