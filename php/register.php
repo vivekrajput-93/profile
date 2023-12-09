@@ -1,5 +1,4 @@
 <?php
-
 // Check if it's an AJAX request
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
     // Assuming form fields are named 'username', 'email', 'password', 'age', 'dob', 'contact'
