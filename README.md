@@ -6,7 +6,7 @@ This site enables users to sign up, log in, and access their profile page. The p
 
 ## Table of Contents
 
-- [Requirements](#requirements
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 
