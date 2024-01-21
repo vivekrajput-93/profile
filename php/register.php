@@ -1,7 +1,6 @@
 <?php
 // Check if it's an AJAX request
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-    // Assuming form fields are named 'username', 'email', 'password', 'age', 'dob', 'contact'
     $username = isset($_POST['username']) ? $_POST['username'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -83,4 +82,6 @@ if ($existsInSQL || $userExistsInMongoDB) {
 
 $stmt->close();
 $conn->close();
+
+
 ?>
